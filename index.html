@@ -387,6 +387,153 @@
             transition: 0.3s;
         }
         
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+        }
+        
+        .chatbot-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .chatbot-button i {
+            color: white;
+            font-size: 24px;
+        }
+        
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chatbot-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chatbot-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .bot-message {
+            background-color: #f0f2f5;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user-message {
+            background-color: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        .chatbot-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .quick-question {
+            background-color: #f0f2f5;
+            border: none;
+            border-radius: 15px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .quick-question:hover {
+            background-color: #e4e6e9;
+        }
+        
         /* Responsive */
         @media (max-width: 992px) {
             .hero h1 {
@@ -459,6 +606,11 @@
             .step {
                 margin-bottom: 20px;
             }
+            
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -489,6 +641,11 @@
             .btn {
                 padding: 10px 20px;
                 font-size: 14px;
+            }
+            
+            .chatbot-window {
+                width: calc(100vw - 40px);
+                right: 20px;
             }
         }
     </style>
@@ -717,6 +874,38 @@
         </div>
     </footer>
 
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-button" id="chatbot-button">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <h3>Asistente PetTravel</h3>
+                <button class="chatbot-close" id="chatbot-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    ¡Hola! Soy el asistente virtual de PetTravel. ¿En qué puedo ayudarte hoy?
+                    <div class="quick-questions">
+                        <button class="quick-question" data-question="¿Cómo funciona el servicio?">¿Cómo funciona el servicio?</button>
+                        <button class="quick-question" data-question="¿Qué tipos de mascotas aceptan?">¿Qué tipos de mascotas aceptan?</button>
+                        <button class="quick-question" data-question="¿Cuánto cuesta el servicio?">¿Cuánto cuesta el servicio?</button>
+                        <button class="quick-question" data-question="¿Cómo contacto con soporte?">¿Cómo contacto con soporte?</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Escribe tu mensaje...">
+                <button id="chatbot-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -767,6 +956,134 @@
                 navLinks.classList.remove('active');
             }
         });
+
+        // Chatbot functionality
+        const chatbotButton = document.getElementById('chatbot-button');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSend = document.getElementById('chatbot-send');
+        const quickQuestions = document.querySelectorAll('.quick-question');
+
+        // Toggle chatbot window
+        chatbotButton.addEventListener('click', function() {
+            chatbotWindow.style.display = 'flex';
+        });
+
+        // Close chatbot window
+        chatbotClose.addEventListener('click', function() {
+            chatbotWindow.style.display = 'none';
+        });
+
+        // Send message function
+        function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                // Add user message
+                addMessage(message, 'user');
+                chatbotInput.value = '';
+                
+                // Simulate bot response after a short delay
+                setTimeout(() => {
+                    const botResponse = getBotResponse(message);
+                    addMessage(botResponse, 'bot');
+                }, 1000);
+            }
+        }
+
+        // Send message on button click
+        chatbotSend.addEventListener('click', sendMessage);
+
+        // Send message on Enter key
+        chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Quick question buttons
+        quickQuestions.forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.getAttribute('data-question');
+                addMessage(question, 'user');
+                
+                // Simulate bot response after a short delay
+                setTimeout(() => {
+                    const botResponse = getBotResponse(question);
+                    addMessage(botResponse, 'bot');
+                }, 1000);
+            });
+        });
+
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.textContent = text;
+            
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            
+            // Add quick questions for bot messages if it's the first bot response
+            if (sender === 'bot' && chatbotMessages.querySelectorAll('.bot-message').length === 1) {
+                const quickQuestionsDiv = document.createElement('div');
+                quickQuestionsDiv.classList.add('quick-questions');
+                
+                const questions = [
+                    '¿Cómo funciona el servicio?',
+                    '¿Qué tipos de mascotas aceptan?',
+                    '¿Cuánto cuesta el servicio?',
+                    '¿Cómo contacto con soporte?'
+                ];
+                
+                questions.forEach(question => {
+                    const button = document.createElement('button');
+                    button.classList.add('quick-question');
+                    button.setAttribute('data-question', question);
+                    button.textContent = question;
+                    button.addEventListener('click', function() {
+                        addMessage(question, 'user');
+                        
+                        // Simulate bot response after a short delay
+                        setTimeout(() => {
+                            const botResponse = getBotResponse(question);
+                            addMessage(botResponse, 'bot');
+                        }, 1000);
+                    });
+                    
+                    quickQuestionsDiv.appendChild(button);
+                });
+                
+                messageDiv.appendChild(quickQuestionsDiv);
+            }
+        }
+
+        // Bot response logic
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('hola') || lowerMessage.includes('buenas')) {
+                return '¡Hola! Me alegra saludarte. ¿En qué puedo ayudarte hoy?';
+            } else if (lowerMessage.includes('funciona') || lowerMessage.includes('cómo funciona')) {
+                return 'PetTravel te permite reservar pasajes para ti y tu mascota en buses pet-friendly. Descarga la app, registra a tu mascota, selecciona tu viaje y realiza la reserva conjunta. ¡Es muy sencillo!';
+            } else if (lowerMessage.includes('mascota') || lowerMessage.includes('aceptan')) {
+                return 'Aceptamos perros y gatos principalmente. Para otras mascotas, contáctanos directamente para evaluar la posibilidad. Todas deben tener su esquema de vacunación al día.';
+            } else if (lowerMessage.includes('cuesta') || lowerMessage.includes('precio') || lowerMessage.includes('tarifa')) {
+                return 'El costo varía según la ruta y el tamaño de tu mascota. Generalmente, el pasaje para mascotas tiene un costo adicional entre $3.000 y $8.000 CLP. Puedes consultar tarifas exactas en la app al realizar tu reserva.';
+            } else if (lowerMessage.includes('soporte') || lowerMessage.includes('contacto') || lowerMessage.includes('humano')) {
+                return 'Puedes contactar a nuestro equipo de soporte al +56 9 1234 5678 o escribirnos a info@pettravel.cl. Estamos disponibles de lunes a viernes de 9:00 a 18:00 hrs.';
+            } else if (lowerMessage.includes('app') || lowerMessage.includes('descargar')) {
+                return 'Puedes descargar PetTravel desde la App Store (iOS) o Google Play (Android). Los enlaces están disponibles en nuestra página principal.';
+            } else if (lowerMessage.includes('seguro') || lowerMessage.includes('seguridad')) {
+                return 'La seguridad de tu mascota es nuestra prioridad. Contamos con buses adaptados, seguimiento en tiempo real y conductores capacitados. Además, todas las mascotas viajan con sus dueños.';
+            } else if (lowerMessage.includes('gracias') || lowerMessage.includes('thank')) {
+                return '¡De nada! Estoy aquí para ayudarte. ¿Tienes alguna otra pregunta?';
+            } else {
+                return 'Entiendo que quieres información sobre: "' + message + '". Te recomiendo contactar a nuestro equipo de soporte para una respuesta más específica. ¿Hay algo más en lo que pueda ayudarte?';
+            }
+        }
     </script>
 </body>
 </html>
